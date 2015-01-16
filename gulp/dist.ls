@@ -17,6 +17,7 @@ gulp.task \dist:partials, ->
 gulp.task \dist:html, <[dist:partials]>, ->
   jsFilter = $.filter("**/*.js")
   cssFilter = $.filter("**/*.css")
+  assets = $.useref.assets!
   gulp.src(".tmp/*.html")
     .pipe($.plumber(errorHandler: $.notify.onError("<%= error.stack %>")))
     .pipe($.inject(gulp.src(".tmp/partials/**/*.js"),
@@ -26,7 +27,7 @@ gulp.task \dist:html, <[dist:partials]>, ->
       addRootSlash: false
       addPrefix: ".."
     ))
-    .pipe($.useref.assets!)
+    .pipe(assets)
     .pipe($.rev!)
     .pipe(jsFilter)
     .pipe($.ngAnnotate!)
@@ -35,7 +36,7 @@ gulp.task \dist:html, <[dist:partials]>, ->
     .pipe(cssFilter)
     .pipe($.csso!)
     .pipe(cssFilter.restore!)
-    .pipe($.useref.restore!)
+    .pipe(assets.restore!)
     .pipe($.useref!)
     .pipe($.revReplace!)
     .pipe($.size!)
