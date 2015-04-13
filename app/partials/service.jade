@@ -19,25 +19,27 @@ form.ui.form.attached.segment
   .inline.fields
     label Query using:
     .field
-      label Original form:
+      label Original form (e.g. 'Punaisella torilla'):
       input.ui.input(type="checkbox",ng-model="queryUsingOriginalForm")
     .field
-      label Base form:
+      label Base form (e.g. 'punainen tori'):
       input.ui.input(type="checkbox",ng-model="queryUsingBaseform")
     .field
-      label Inflections:
+      label Inflections (e.g. 'V N Nom Sg,N Nom Pl,A Pos Nom Pl' for 'lentäminen punaiset torit'):
       input.ui.input(ng-model="queryUsingInflections")
   .inline.fields
-    label Query modifying:
+    label When inflecting and/or baseforming:
     .field
-      label Every part:
+      label Query modifying every part (e.g. 'Punaisella torilla' -&gt; 'punainen tori'):
       input.ui.input(type="checkbox",ng-model="queryModifyingEveryPart")
     .field
-      label Only last part:
+      label Query modifying only last part (supported only for Finnish, e.g. query for "Ahvenanmaan maakunnanvoudinvirasto" instead of "Ahvenanmaa maakuntavoutivirasto"):
       input.ui.input(type="checkbox",ng-model="queryModifyingOnlyLastPart")
-      
+    .field 
+      label Query using all permutations (e.g. in Latin query both for "Marcus Maximus" &amp; "Marcus magnus"):
+      input.ui.input(type="checkbox",ng-model="queryUsingAllPermutations")
   .field
-    label LAS Filters to Apply:
+    label LAS Filters to Apply (e.g. 'POS:!VERB,!ADJ'):
     input.ui.input(ng-model="lasFilters")
   button.ui.green.button(ng-click="submit()") Submit
   button.ui.red.button(ng-click="delete()") Delete
