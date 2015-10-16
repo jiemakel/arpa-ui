@@ -3,17 +3,13 @@ angular.module('app').controller 'ServiceCtrl', ($scope,$http,$stateParams,toast
   $scope.name=$scope.service
   $scope.maxNGrams=3
   $scope.query='''
-    PREFIX text: <http://jena.apache.org/text#>
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
     PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
     SELECT ?id ?label ?ngram {
       VALUES ?ngram {
         <VALUES>
       }
-      BIND(CONCAT('"',?ngram,'"') AS ?qstring)
-      ?id text:query ?qstring .
-      ?id rdfs:label|skos:prefLabel ?label .
-      FILTER(LCASE(STR(?label))=LCASE(STR(?ngram)))
+      ?id rdfs:label|skos:prefLabel ?ngram .
     }
   '''
   $scope.delete = !->
