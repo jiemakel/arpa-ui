@@ -9,7 +9,8 @@ angular.module('app').controller 'ServiceCtrl', ($scope,$http,$stateParams,toast
       VALUES ?ngram {
         <VALUES>
       }
-      ?id rdfs:label|skos:prefLabel ?ngram .
+      BIND(?ngram AS ?label)
+      ?id rdfs:label|skos:prefLabel ?label .
     }
   '''
   $scope.delete = !->
