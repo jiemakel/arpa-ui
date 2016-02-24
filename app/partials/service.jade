@@ -12,34 +12,47 @@ form.ui.form.attached.segment
     yasqe.ui.input(data="query")
   .inline.field
     label Maximum N-gram length
-    input.ui.input(ng-model="maxNGrams")
+    input.ui.input(ng-model="maxNGrams",size="2")
   .inline.field
-    label (Default) LAS Locale
+    label LAS Locale
     input.ui.input(ng-model="lasLocale",size="2")
-  .inline.fields
-    label Query using:
-    .field
-      label Original form (e.g. 'Punaisella torilla'):
-      input.ui.input(type="checkbox",ng-model="queryUsingOriginalForm")
-    .field
-      label Base form (e.g. 'punainen tori'):
-      input.ui.input(type="checkbox",ng-model="queryUsingBaseform")
-    .field
-      label Inflections (e.g. 'V N Nom Sg,N Nom Pl,A Pos Nom Pl' for 'lentäminen punaiset torit'):
-      input.ui.input(ng-model="queryUsingInflections")
-  .inline.fields
-    label When inflecting and/or baseforming:
-    .field
-      label Query modifying every part (e.g. 'Punaisella torilla' -&gt; 'punainen tori'):
-      input.ui.input(type="checkbox",ng-model="queryModifyingEveryPart")
-    .field
-      label Query modifying only last part (supported only for Finnish, e.g. query for "Ahvenanmaan maakunnanvoudinvirasto" instead of "Ahvenanmaa maakuntavoutivirasto"):
-      input.ui.input(type="checkbox",ng-model="queryModifyingOnlyLastPart")
-    .field 
-      label Query using all permutations (e.g. in Latin query both for "Marcus Maximus" &amp; "Marcus magnus"):
-      input.ui.input(type="checkbox",ng-model="queryUsingAllPermutations")
+    label (or blank to guess)
   .field
-    label LAS Filters to Apply (e.g. 'POS:!VERB,!ADJ'):
-    input.ui.input(ng-model="lasFilters")
+    label Required LAS tags (e.g. 'UPOS:PROPN,UPOS:NOUN' to filter candidates only to nouns in the terms of the Finnish analyzer):
+    input.ui.input(ng-model="positiveLASFilters")
+  .field
+    label Disallowed LAS tags (e.g. 'PROPER:FIRST,PROPER:LAST' to filter out words that are proper first or last names of people in the terms of the Finnish analyzer):
+    input.ui.input(ng-model="negativeLASFilters")
+  h4 Query Using:
+  .inline.field
+    label Original form:
+    input.ui.input(type="checkbox",ng-model="queryUsingOriginalForm")
+    label (e.g. 'Punaisella torilla'. Use when recall is important and you are not sure of the accurary of the baseforming.)
+  .inline.field
+    label Base form:
+    input.ui.input(type="checkbox",ng-model="queryUsingBaseform")
+    label (e.g. 'punainen tori'. Use when targeting an inflected language.)
+  .inline.field
+    label Inflections:
+    input.ui.input(ng-model="queryUsingInflections")
+    label (e.g. 'V N Nom Sg,N Nom Pl,A Pos Nom Pl' for 'lentäminen punaiset torit'. Use when your target vocabular has words in particular inflected forms.)
+  .inline.fields
+  h4 When inflecting and/or baseforming:
+  .inline.field 
+    label Guess baseforms for unknown words:
+    input.ui.input(type="checkbox",ng-model="guess")
+    label (Use ONLY when you really need to process words that are outside the vocabulary of the lemmatizer AND you can take a performance hit.)
+  .inline.field
+    label Query modifying every part:
+    input.ui.input(type="checkbox",ng-model="queryModifyingEveryPart")
+    label (e.g. 'Punaisella torilla' -&gt; 'punainen tori'/'punaiset torit'. Useful probably most of the time when doing baseforming.)
+  .inline.field
+    label Query modifying only last part:
+    input.ui.input(type="checkbox",ng-model="queryModifyingOnlyLastPart")
+    label (supported only for Finnish, e.g. query for "Ahvenanmaan maakunnanvoudinvirasto" instead of "Ahvenanmaa maakuntavoutivirasto". Useful for Finnish multipart names.)
+  .inline.field 
+    label Query using all permutations:
+    input.ui.input(type="checkbox",ng-model="queryUsingAllPermutations")
+    label (e.g. in Latin query both for "Marcus Maximus" &amp; "Marcus magnus". Useful only when you know that 1) baseforming of SOME parts of the candidates are needed but 2) baseforming can also cause errors.)
   button.ui.green.button(ng-click="submit()") Submit
   button.ui.red.button(ng-click="delete()") Delete
