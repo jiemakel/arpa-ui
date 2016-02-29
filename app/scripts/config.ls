@@ -1,5 +1,5 @@
 angular.module('app', [ 'ui.router','toastr' ])
-  .constant 'services','http://localhost:9000/'
+  .constant 'services','http://demo.seco.tkk.fi/arpa/'
   .config ($stateProvider, $urlRouterProvider) !->
     $urlRouterProvider.otherwise '/'
     $stateProvider.state 'main',
