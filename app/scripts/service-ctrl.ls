@@ -69,7 +69,7 @@ angular.module('app').controller 'ServiceCtrl', ($scope,$http,$stateParams,toast
         for k,va of value
           for v in va
             $scope.strongNegativeLASFilters += k+':'+v+', '
-        $scope.strngNegativeLASFilters = $scope.strongNegativeLASFilters.substring(0,$scope.strongNegativeLASFilters.length-2)
+        $scope.strongNegativeLASFilters = $scope.strongNegativeLASFilters.substring(0,$scope.strongNegativeLASFilters.length-2)
     else if (item=='positiveLASFilters')
       if (value)
         for k,va of value
