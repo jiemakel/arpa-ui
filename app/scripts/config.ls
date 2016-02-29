@@ -1,5 +1,5 @@
 angular.module('app', [ 'ui.router','toastr' ])
-  .constant 'services','http://demo.seco.tkk.fi/arpa/'
+  .constant 'services','http://localhost:9000/'
   .config ($stateProvider, $urlRouterProvider) !->
     $urlRouterProvider.otherwise '/'
     $stateProvider.state 'main',
@@ -32,4 +32,3 @@ angular.module('app', [ 'ui.router','toastr' ])
       timeOut: 1500
       titleClass: 'toast-title'
       toastClass: 'toast'
-

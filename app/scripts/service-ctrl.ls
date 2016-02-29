@@ -2,6 +2,7 @@ angular.module('app').controller 'ServiceCtrl', ($scope,$http,$stateParams,toast
   $scope.service = $stateParams.service
   $scope.name=$scope.service
   $scope.maxNGrams=3
+  $scope.detph=1
   $scope.query='''
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
     PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
@@ -27,6 +28,11 @@ angular.module('app').controller 'ServiceCtrl', ($scope,$http,$stateParams,toast
       [k,v] = kv.split(':')
       map.[][k].push(v)
     negativeLASFilters = map
+    map = {}
+    for kv in $scope.strongNegativeLASFilters.split(/, ?/)
+      [k,v] = kv.split(':')
+      map.[][k].push(v)
+    strongNegativeLASFilters = map
     response <-! $http.put(services+$scope.service,{
       $scope.name
       $scope.endpointURL
@@ -38,8 +44,10 @@ angular.module('app').controller 'ServiceCtrl', ($scope,$http,$stateParams,toast
       $scope.queryModifyingOnlyLastPart
       positiveLASFilters
       negativeLASFilters
+      strongNegativeLASFilters
       $scope.guess
       $scope.query
+      depth:parseInt($scope.depth)
       maxNGrams:parseInt($scope.maxNGrams)
     }).then(_,$scope.handleError)
     toastr.success("Successfully saved service #{$scope.service} (#{$scope.name})")
@@ -47,6 +55,7 @@ angular.module('app').controller 'ServiceCtrl', ($scope,$http,$stateParams,toast
   response <-! $http.get(services+$scope.service).then(_,(response) !-> if response.status!=404 then $scope.handleError(response) else $scope.loading=false)
   $scope.loading=false
   $scope.negativeLASFilters = ''
+  $scope.strongNegativeLASFilters = ''
   $scope.positiveLASFilters = ''
   for item,value of response.data
     if (item=='negativeLASFilters')
@@ -55,6 +64,12 @@ angular.module('app').controller 'ServiceCtrl', ($scope,$http,$stateParams,toast
           for v in va
             $scope.negativeLASFilters += k+':'+v+', '
         $scope.negativeLASFilters = $scope.negativeLASFilters.substring(0,$scope.negativeLASFilters.length-2)
+    else if (item=='strongNegativeLASFilters')
+      if (value)
+        for k,va of value
+          for v in va
+            $scope.strongNegativeLASFilters += k+':'+v+', '
+        $scope.strngNegativeLASFilters = $scope.strongNegativeLASFilters.substring(0,$scope.strongNegativeLASFilters.length-2)
     else if (item=='positiveLASFilters')
       if (value)
         for k,va of value

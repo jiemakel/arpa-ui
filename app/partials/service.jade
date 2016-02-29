@@ -10,19 +10,28 @@ form.ui.form.attached.segment
   .field
     label Query:
     yasqe.ui.input(data="query")
+  h4 LAS options:
   .inline.field
-    label Maximum N-gram length
+    label Maximum N-gram length:
     input.ui.input(ng-model="maxNGrams",size="2")
   .inline.field
-    label LAS Locale
+    label Analysis depth:
+    input.ui.input(ng-model="depth",size="2")
+    label (change to 0 for slightly more speed but less powerful word sense disambiguation)
+  .inline.field
+    label LAS Locale:
     input.ui.input(ng-model="lasLocale",size="2")
     label (or blank to guess)
+  h4 Candidate filtering options:
   .field
     label Required LAS tags (e.g. 'UPOS:PROPN,UPOS:NOUN' to filter candidates only to nouns in the terms of the Finnish analyzer):
     input.ui.input(ng-model="positiveLASFilters")
   .field
     label Disallowed LAS tags (e.g. 'PROPER:FIRST,PROPER:LAST' to filter out words that are proper first or last names of people in the terms of the Finnish analyzer):
     input.ui.input(ng-model="negativeLASFilters")
+  .field
+    label Strongly disallowed LAS tags (same as above, but filter out words if <i>any</i> of their analyses contains the tag, not just the selected one. Use e.g. to remove people's names even when a GEO interpretation is selected by the lemmatizer):
+    input.ui.input(ng-model="strongNegativeLASFilters")
   h4 Query Using:
   .inline.field
     label Original form:
@@ -41,7 +50,7 @@ form.ui.form.attached.segment
   .inline.field 
     label Guess baseforms for unknown words:
     input.ui.input(type="checkbox",ng-model="guess")
-    label (Use ONLY when you really need to process words that are outside the vocabulary of the lemmatizer AND you can take a performance hit.)
+    label (Use when you need to process words that are outside the vocabulary of the lemmatizer adn you can take a small performance hit.)
   .inline.field
     label Query modifying every part:
     input.ui.input(type="checkbox",ng-model="queryModifyingEveryPart")
