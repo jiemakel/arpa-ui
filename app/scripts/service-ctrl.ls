@@ -3,6 +3,9 @@ angular.module('app').controller 'ServiceCtrl', ($scope,$http,$stateParams,toast
   $scope.name=$scope.service
   $scope.maxNGrams=3
   $scope.detph=1
+  $scope.negativeLASFilters = ''
+  $scope.strongNegativeLASFilters = ''
+  $scope.positiveLASFilters = ''
   $scope.query='''
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
     PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
@@ -54,9 +57,6 @@ angular.module('app').controller 'ServiceCtrl', ($scope,$http,$stateParams,toast
   $scope.loading = true
   response <-! $http.get(services+$scope.service).then(_,(response) !-> if response.status!=404 then $scope.handleError(response) else $scope.loading=false)
   $scope.loading=false
-  $scope.negativeLASFilters = ''
-  $scope.strongNegativeLASFilters = ''
-  $scope.positiveLASFilters = ''
   for item,value of response.data
     if (item=='negativeLASFilters')
       if (value)
