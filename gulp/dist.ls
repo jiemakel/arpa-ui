@@ -21,7 +21,6 @@ gulp.task \dist:html, <[dist:partials]>, ->
   gulp.src(".tmp/*.html")
     .pipe($.plumber(errorHandler: $.notify.onError("<%= error.stack %>")))
     .pipe($.inject(gulp.src(".tmp/partials/**/*.js"),
-      read: false
       starttag: "<!-- inject:partials-->"
       endtag: "<!-- endinject-->"
       addRootSlash: false
@@ -34,7 +33,9 @@ gulp.task \dist:html, <[dist:partials]>, ->
     .pipe($.uglify(preserveComments: uglifySaveLicense))
     .pipe(jsFilter.restore!)
     .pipe(cssFilter)
-    .pipe($.csso!)
+    .pipe($.csso(
+      restructure: false
+    ))
     .pipe(cssFilter.restore!)
     .pipe(assets.restore!)
     .pipe($.useref!)

@@ -24,7 +24,7 @@ gulp.task \templates, ->
     .pipe($.plumber(errorHandler: $.notify.onError("<%= error.stack %>")))
     .pipe($.cached!)
     .pipe($.sourcemaps.init!)
-    .pipe($.jade(pretty: true))
+    .pipe($.pug(pretty: true))
     .pipe($.sourcemaps.write("./tmp/maps"))
     .pipe(gulp.dest(".tmp"))
 
