@@ -13,6 +13,7 @@ gulp.task \styles, ->
 gulp.task \scripts, ->
   gulp.src("app/scripts/**/*.ls")
     .pipe($.plumber(errorHandler: $.notify.onError("<%= error.stack %>")))
+    .pipe($.replace(\ARPA_UI_ARPA_SERVICE_URL, JSON.stringify(process.env.ARPA_UI_ARPA_SERVICE_URL || "http://demo.seco.tkk.fi/arpa/")))
     .pipe($.cached!)
     .pipe($.sourcemaps.init!)
     .pipe($.livescript(bare: false))

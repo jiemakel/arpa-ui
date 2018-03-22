@@ -1,5 +1,5 @@
 angular.module('app', [ 'ui.router','toastr' ])
-  .constant 'services','http://demo.seco.tkk.fi/arpa/'
+  .constant 'services', ARPA_UI_ARPA_SERVICE_URL
   .config ($stateProvider, $urlRouterProvider) !->
     $urlRouterProvider.otherwise '/'
     $stateProvider.state 'main',

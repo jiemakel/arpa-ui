@@ -12,9 +12,8 @@ RUN npm install && bower install
 
 COPY --chown=node . /app/
 
-ARG arpa_url=http://demo.seco.tkk.fi/arpa/
-
-RUN sed -i "s;http://demo.seco.tkk.fi/arpa/;${arpa_url};" app/scripts/config.ls
+ARG arpa_url
+ENV ARPA_UI_ARPA_SERVICE_URL ${arpa_url}
 
 RUN gulp dist
 
