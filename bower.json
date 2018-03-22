@@ -10,6 +10,6 @@
     "yasgui-yasqe": "2.2.6"
   },
   "devDependencies": {
-    "angular-mocks": "*"
+    "angular-mocks": "1.3.9"
   }
 }

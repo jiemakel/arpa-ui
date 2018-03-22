@@ -1,0 +1,7 @@
+Dockerfile
+README*
+node_modules
+app/bower_components
+dist
+.git*
+*.swp
