@@ -14,6 +14,10 @@ Run:
 
 `$ gulp serve`
 
+The ARPA service url can be configured using the environment variable `ARPA_UI_ARPA_SERVICE_URL`:
+
+`$ ARPA_UI_ARPA_SERVICE_URL=http://localhost:19991/ gulp serve`
+
 ## Running with Docker
 
 Build:
